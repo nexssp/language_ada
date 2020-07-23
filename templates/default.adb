@@ -1,5 +1,5 @@
 with Ada.Text_IO;
-procedure my is
+procedure default is
     begin
       loop
         exit when Ada.Text_IO.End_Of_File;
@@ -7,4 +7,4 @@ procedure my is
         -- Ada.Text_IO.Put_Line("Echo" &Ada.Text_IO.Get_Line);
         Ada.Text_IO.Put_Line(Ada.Text_IO.Get_Line);
       end loop;
-end my;
+end default;
