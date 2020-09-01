@@ -1,4 +1,7 @@
-let languageConfig = Object.assign({}, require("../config.win32"));
+let languageConfig = Object.assign(
+  {},
+  require(`../config.${process.platform}`)
+);
 languageConfig.title = "Ada";
 languageConfig.description =
   "Ada is a state-of-the art programming language that development teams worldwide are using for critical software.";
