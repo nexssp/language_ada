@@ -1,5 +1,5 @@
 with Ada.Text_IO;
-procedure default is
+procedure Default is
     begin
       loop
         exit when Ada.Text_IO.End_Of_File;
