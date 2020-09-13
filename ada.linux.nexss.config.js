@@ -1,13 +1,39 @@
 let languageConfig = Object.assign({}, require("./ada.win32.nexss.config"));
 
+let sudo = "sudo ";
+if (process.getuid && process.getuid() === 0) {
+  sudo = "";
+}
+
 languageConfig.compilers = {
-  gnatUbuntu: {
-    install: "sudo apt install gnat",
+  gnat: {
+    install: `${sudo} apt install gnat`,
     command: "gnatmake",
     args: "-q <file>;./<fileNoExt>", // -n don't display up to date
     help: ``,
   },
 };
+
+const {
+  replaceCommandByDist,
+  dist,
+} = require(`${process.env.NEXSS_SRC_PATH}/lib/osys`);
+
+const distName = dist();
+languageConfig.dist = distName;
+
+// TODO: Later to cleanup this config file !!
+switch (distName) {
+  case "Arch Linux":
+    languageConfig.compilers.gnat.install = `${sudo}pacman -Sy --noconfirm gcc-ada`;
+    break;
+  default:
+    languageConfig.compilers.gnat.install = replaceCommandByDist(
+      languageConfig.compilers.gnat.install
+    );
+    break;
+}
+
 languageConfig.errors = require("./nexss.ada.errors");
 languageConfig.languagePackageManagers = {
   alire: {
