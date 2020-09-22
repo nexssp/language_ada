@@ -1,0 +1,26 @@
+{
+  "name": "language_ada.git",
+  "version": "1.0.0",
+  "description": "Ada implementation for Nexss Programmer.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nexssp/language_ada.git"
+  },
+  "keywords": [
+    "ada",
+    "programming",
+    "nexss"
+  ],
+  "author": "Nexss.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nexssp/language_ada/issues"
+  },
+  "homepage": "https://github.com/nexssp/language_ada#readme",
+  "dependencies": {
+    "@nexssp/os": "^1.0.15"
+  }
+}

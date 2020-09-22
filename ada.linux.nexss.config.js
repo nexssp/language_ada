@@ -1,9 +1,6 @@
 let languageConfig = Object.assign({}, require("./ada.win32.nexss.config"));
-
-let sudo = "sudo ";
-if (process.getuid && process.getuid() === 0) {
-  sudo = "";
-}
+const os = require(`@nexssp/os`);
+const sudo = os.sudo();
 
 languageConfig.compilers = {
   gnat: {
@@ -14,17 +11,15 @@ languageConfig.compilers = {
   },
 };
 
-const {
-  replaceCommandByDist,
-  dist,
-} = require(`${process.env.NEXSS_SRC_PATH}/lib/osys`);
-
-const distName = dist();
+const distName = os.name();
 languageConfig.dist = distName;
 
 // TODO: Later to cleanup this config file !!
 switch (distName) {
-  case "Arch Linux":
+  case os.distros.ORACLE:
+    languageConfig.compilers.gnat.install = `${sudo}yum install -y gcc-gnat`;
+    break;
+  case os.distros.ARCH:
     languageConfig.compilers.gnat.install = `${sudo}pacman -Sy --noconfirm gcc-ada`;
     break;
   default:
@@ -33,21 +28,5 @@ switch (distName) {
     );
     break;
 }
-
-languageConfig.errors = require("./nexss.ada.errors");
-languageConfig.languagePackageManagers = {
-  alire: {
-    installation: ``,
-    messageAfterInstallation: "Alire has been installed.", //this message will be displayed after this package manager installation, maybe some action needed etc.
-    installed: "alr install",
-    search: "alr search",
-    show: "alr show",
-    install: "alr require",
-    uninstall: "alr remove",
-    help: "alr",
-    version: "alr version",
-    init: () => {},
-  },
-};
 
 module.exports = languageConfig;
