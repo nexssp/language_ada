@@ -4,7 +4,7 @@ const sudo = os.sudo();
 
 languageConfig.compilers = {
   gnat: {
-    install: `${sudo} apt install gnat`,
+    install: `${sudo} apt -y install gcc-gnat`,
     command: "gnatmake",
     args: "-q <file>;./<fileNoExt>", // -n don't display up to date
     help: ``,
@@ -22,8 +22,11 @@ switch (distName) {
   case os.distros.ARCH:
     languageConfig.compilers.gnat.install = `${sudo}pacman -Sy --noconfirm gcc-ada`;
     break;
+  case os.distros.UBUNTU:
+    languageConfig.compilers.gnat.install = `${sudo}apt-get install -y gnat`;
+    break;
   default:
-    languageConfig.compilers.gnat.install = replaceCommandByDist(
+    languageConfig.compilers.gnat.install = os.replacePMByDistro(
       languageConfig.compilers.gnat.install
     );
     break;
