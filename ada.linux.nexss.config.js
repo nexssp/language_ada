@@ -1,5 +1,5 @@
 let languageConfig = Object.assign({}, require("./ada.win32.nexss.config"));
-const os = require(`@nexssp/os`);
+const os = require(`${process.env.NEXSS_SRC_PATH}/node_modules/@nexssp/os/`);
 const sudo = os.sudo();
 
 languageConfig.compilers = {

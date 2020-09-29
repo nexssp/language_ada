@@ -1,3 +1,3 @@
 module.exports = {
-  "Cannot find module '(.*?)'": "nexss js install <package>"
+  "Cannot find module '(.*?)'": "nexss adb install <package>",
 };
