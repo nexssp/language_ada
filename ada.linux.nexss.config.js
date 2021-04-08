@@ -1,6 +1,5 @@
 let languageConfig = Object.assign({}, require("./ada.win32.nexss.config"));
-const os = require(`${process.env.NEXSS_SRC_PATH}/node_modules/@nexssp/os/`);
-const sudo = os.sudo();
+const sudo = process.sudo;
 
 languageConfig.compilers = {
   gnat: {
@@ -11,22 +10,22 @@ languageConfig.compilers = {
   },
 };
 
-const distName = os.name();
+const distName = process.distro;
 languageConfig.dist = distName;
 
 // TODO: Later to cleanup this config file !!
 switch (distName) {
-  case os.distros.ORACLE:
+  case process.distros.ORACLE:
     languageConfig.compilers.gnat.install = `${sudo}yum install -y gcc-gnat`;
     break;
-  case os.distros.ARCH:
+  case process.distros.ARCH:
     languageConfig.compilers.gnat.install = `${sudo}pacman -Sy --noconfirm gcc-ada`;
     break;
-  case os.distros.UBUNTU:
+  case process.distros.UBUNTU:
     languageConfig.compilers.gnat.install = `${sudo}apt-get install -y gnat`;
     break;
   default:
-    languageConfig.compilers.gnat.install = os.replacePMByDistro(
+    languageConfig.compilers.gnat.install = process.replacePMByDistro(
       languageConfig.compilers.gnat.install
     );
     break;
