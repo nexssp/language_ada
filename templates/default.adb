@@ -8,3 +8,5 @@ procedure Default is
         Ada.Text_IO.Put_Line(Ada.Text_IO.Get_Line);
       end loop;
 end default;
+
+Default
